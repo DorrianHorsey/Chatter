@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Chatter.Models.Chat>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div id="response"></div>
+<button id="getChats" class="btn btn-primary">Get Chats</button>
+<button id="postChats" class="btn btn-primary">Post</button>
+<input id="chatMessages" type="text" value="these are the chat messages">
+
+
+@section Scripts {
+  <script> 
+
+
+      $(document).ready(function(){ 
+ 
+          $('#postChats').click(function () {
+
+              var talkTerm = $('#chatMessages').val()
+              $.post("@Url.Action("PostChats","Chats")",{"Messages":talkTerm }  )
+
+
+          });
+          $("getChats").click(
+              function() { 
+                  $.get("@Url.Action("TestJson","Chats")", function (serverResponse) {
+                      var jsonTest = JSON.parse(serverResponse);
+                      console.log(jsonTest);
+         
+                  })
+              }
+          )
+
+      $("#postChats").click(
+          );
+      }
+      );
+
+    </script>
+    }
